@@ -43,14 +43,14 @@ from Products.MxDateTimeField import mxdaterangeindex
 
 def initialize(context):
     ##code-section custom-init-top #fill in your manual code here
-    import pdb;pdb.set_trace()
-    mxdateindex.initialize(context)
-    mxdaterangeindex.initialize(context)
+    #import pdb;pdb.set_trace()
+    #mxdateindex.initialize(context)
+    #mxdaterangeindex.initialize(context)
     ##/code-section custom-init-top
 
     # imports packages and types for registration
-    import mxdateindex
-    import mxdaterangeindex
+    #import mxdateindex
+    #import mxdaterangeindex
     import testclasses
 
     import MxDateTimeField
