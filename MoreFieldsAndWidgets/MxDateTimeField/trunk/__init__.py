@@ -36,21 +36,20 @@ DirectoryView.registerDirectory('skins/MxDateTimeField',
                                     product_globals)
 
 ##code-section custom-init-head #fill in your manual code here
-from Products.MxDateTimeField import mxdateindex
-from Products.MxDateTimeField import mxdaterangeindex
+from Products.MxDateTimeField.mxdateindex import MxDateIndex
+from Products.MxDateTimeField.mxdaterangeindex import MxDateRangeIndex
 ##/code-section custom-init-head
 
 
 def initialize(context):
     ##code-section custom-init-top #fill in your manual code here
-    #import pdb;pdb.set_trace()
-    #mxdateindex.initialize(context)
-    #mxdaterangeindex.initialize(context)
+    MxDateIndex.initialize(context)
+    MxDateRangeIndex.initialize(context)
     ##/code-section custom-init-top
 
     # imports packages and types for registration
-    #import mxdateindex
-    #import mxdaterangeindex
+    import mxdateindex
+    import mxdaterangeindex
     import testclasses
 
     import MxDateTimeField

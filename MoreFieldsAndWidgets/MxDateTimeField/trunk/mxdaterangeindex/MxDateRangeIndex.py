@@ -23,7 +23,9 @@ __docformat__ = 'plaintext'
 
 
 ##code-section module-header #fill in your manual code here
+from Globals import DTMLFile, InitializeClass
 ##/code-section module-header
+
 
 from Products.PluginIndexes.DateRangeIndex.DateRangeIndex import DateRangeIndex
 
@@ -32,12 +34,8 @@ class MxDateRangeIndex(DateRangeIndex):
     __implements__ = (getattr(DateRangeIndex,'__implements__',()),)
 
     ##code-section class-header_MxDateRangeIndex #fill in your manual code here
+    meta_type = "MxDateRangeIndex"
     ##/code-section class-header_MxDateRangeIndex
-
-
-
-
-
 
     def _convertDateTime( self, value ):
         if value is None:
@@ -49,7 +47,33 @@ class MxDateRangeIndex(DateRangeIndex):
 
 
 ##code-section module-footer #fill in your manual code here
+
+def initialize(context):
+
+    context.registerClass( \
+            MxDateRangeIndex,\
+            permission='Add Pluggable Index', \
+            constructors=(manage_addMxDateRangeIndexForm,\
+                          manage_addMxDateRangeIndex),\
+            icon='www/index.gif',\
+            visibility=None\
+            )
+
+
+InitializeClass( MxDateRangeIndex )
+
+manage_addMxDateRangeIndexForm = DTMLFile( 'dtml/addMxDateRangeIndex', globals() )
+manage_indexProperties = DTMLFile( 'dtml/manageMxDateRangeIndex', globals() )
+
+def manage_addMxDateRangeIndex(self, id, extra=None,
+        REQUEST=None, RESPONSE=None, URL3=None):
+    """
+        Add a mx date range index to the catalog, using the incredibly icky
+        double-indirection-which-hides-NOTHING.
+    """
+    return self.manage_addIndex(id, 'MxDateRangeIndex', extra,
+        REQUEST, RESPONSE, URL3)
+
+
 ##/code-section module-footer
-
-
 

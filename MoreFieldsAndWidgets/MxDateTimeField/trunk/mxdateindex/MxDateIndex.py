@@ -23,6 +23,7 @@ __docformat__ = 'plaintext'
 
 
 ##code-section module-header #fill in your manual code here
+from Globals import DTMLFile, InitializeClass
 ##/code-section module-header
 
 
@@ -33,12 +34,8 @@ class MxDateIndex(DateIndex):
     __implements__ = (getattr(DateIndex,'__implements__',()),)
 
     ##code-section class-header_MxDateIndex #fill in your manual code here
+    meta_type = "MxDateIndex"
     ##/code-section class-header_MxDateIndex
-
-
-
-
-
 
     def _convert( self, value, default=None ) :
         """Convert Date/Time value to our internal representation"""
@@ -63,6 +60,26 @@ class MxDateIndex(DateIndex):
 
 
 ##code-section module-footer #fill in your manual code here
+
+InitializeClass( MxDateIndex )
+
+def initialize(context):
+
+    context.registerClass( \
+            MxDateIndex,\
+            permission='Add Pluggable Index', \
+            constructors=(manage_addMxDateIndexForm,\
+                          manage_addMxDateIndex),\
+            icon='www/index.gif',\
+            visibility=None\
+            )
+
+manage_addMxDateIndexForm = DTMLFile( 'dtml/addMxDateIndex', globals() )
+
+def manage_addMxDateIndex( self, id, REQUEST=None, RESPONSE=None, URL3=None):
+    """Add a MxDate index"""
+    return self.manage_addIndex(id, 'MxDateIndex', extra=None, \
+                    REQUEST=REQUEST, RESPONSE=RESPONSE, URL1=URL3)
 ##/code-section module-footer
 
 
