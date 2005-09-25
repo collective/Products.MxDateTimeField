@@ -37,6 +37,11 @@ class MxDateIndex(DateIndex):
     meta_type = "MxDateIndex"
     ##/code-section class-header_MxDateIndex
 
+
+
+
+
+
     def _convert( self, value, default=None ) :
         """Convert Date/Time value to our internal representation"""
         

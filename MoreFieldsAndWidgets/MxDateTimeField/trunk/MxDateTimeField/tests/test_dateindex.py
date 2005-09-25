@@ -36,6 +36,7 @@ from Products.MxDateTimeField.mxdateindex.MxDateIndex import MxDateIndex
 class test_dateindex(MxDateTestCase):
     """ test-cases for class(es) 
     """
+
     ##code-section class-header_test_dateindex #fill in your manual code here
     ##/code-section class-header_test_dateindex
 

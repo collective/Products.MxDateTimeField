@@ -37,6 +37,11 @@ class MxDateRangeIndex(DateRangeIndex):
     meta_type = "MxDateRangeIndex"
     ##/code-section class-header_MxDateRangeIndex
 
+
+
+
+
+
     def _convertDateTime( self, value ):
         if value is None:
             return value
@@ -76,4 +81,6 @@ def manage_addMxDateRangeIndex(self, id, extra=None,
 
 
 ##/code-section module-footer
+
+
 
