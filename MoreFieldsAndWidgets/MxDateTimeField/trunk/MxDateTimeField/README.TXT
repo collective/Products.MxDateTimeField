@@ -27,6 +27,9 @@ Installation
   
   You need to install egenix mxDateTime first, it is part of 'mxBase', see 
   http://www.egenix.com/files/python/eGenix-mx-Extensions.html#Download-mxBASE
+
+  Several Operating Systems are offering the egenix mxDateTime within their 
+  package management systems.
   
   Then just put the MxDateTime folder into your Zopes 'Products' directory. 
   The Product should be listed among your Zopes Products in the control panel.
