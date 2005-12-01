@@ -23,6 +23,7 @@ __docformat__ = 'plaintext'
 
 
 ##code-section module-header #fill in your manual code here
+import mx
 from Globals import DTMLFile, InitializeClass
 ##/code-section module-header
 
