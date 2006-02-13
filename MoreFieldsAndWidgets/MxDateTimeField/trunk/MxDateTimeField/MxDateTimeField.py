@@ -109,6 +109,15 @@ class MxDateTimeField(ObjectField):
 
       ObjectField.set(self, instance, value, **kwargs)
 
+    def getRaw(self, instance, **kwargs):
+        val= ObjectField.get(self,instance,**kwargs)
+        if val:
+#            import pdb;pdb.set_trace()
+            return '%4d-%02d-%02d %02d:%02d:%02d' %(val.year,val.month,val.day,val.hour,val.minute,val.second)
+
+        else:
+            return None
+
 
 registerField(MxDateTimeField,
               title='MxDateTimeField',
