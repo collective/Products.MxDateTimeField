@@ -41,6 +41,7 @@ from Products.MxDateTimeField import config
 ##code-section module-header #fill in your manual code here
 DEBUG = False
 import mx.DateTime.DateTime # egenix mx base is needed! Gogo.
+from mx.DateTime import DateTimeType
 from types import ListType, TupleType, StringTypes
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base
@@ -106,6 +107,9 @@ class MxDateTimeField(ObjectField):
         if DEBUG :
           print "Setting value from string"
         value = mx.DateTime.DateTimeFrom(value)
+        
+      if value and type(value) != DateTimeType:
+          raise ValueError,"argument to MxDateTimeField musst be either a string or a MxDateTime object, but looks got: %s" % repr(value)
 
       ObjectField.set(self, instance, value, **kwargs)
 
