@@ -109,14 +109,13 @@ class MxDateTimeField(ObjectField):
         value = mx.DateTime.DateTimeFrom(value)
         
       if value and type(value) != DateTimeType:
-          raise ValueError,"argument to MxDateTimeField musst be either a string or a MxDateTime object, but looks got: %s" % repr(value)
+          raise ValueError,"argument to MxDateTimeField must be either a string or a MxDateTime object, but looks got: %s" % repr(value)
 
       ObjectField.set(self, instance, value, **kwargs)
 
     def getRaw(self, instance, **kwargs):
         val= ObjectField.get(self,instance,**kwargs)
         if val:
-#            import pdb;pdb.set_trace()
             return '%4d-%02d-%02d %02d:%02d:%02d' %(val.year,val.month,val.day,val.hour,val.minute,val.second)
 
         else:
