@@ -51,19 +51,9 @@ DEBUG = False
 import mx.DateTime.DateTime # egenix mx base is needed! Gogo.
 from mx.DateTime import DateTimeType
 from types import ListType, TupleType, StringTypes
-from AccessControl import ClassSecurityInfo
-from Acquisition import aq_base
 
 from Products.CMFCore.utils import getToolByName
 
-from Products.Archetypes.Field import ObjectField,encode,decode
-from Products.Archetypes.Registry import registerField
-from Products.Archetypes.utils import DisplayList
-from Products.Archetypes import config as atconfig
-from Products.Archetypes.Widget import *
-from Products.Archetypes.Field  import *
-from Products.Archetypes.Schema import Schema
-from Products.generator import i18n
 
 from Products.MxDateTimeField import config
 
