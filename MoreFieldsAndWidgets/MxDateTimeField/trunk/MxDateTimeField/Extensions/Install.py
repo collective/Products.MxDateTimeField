@@ -1,33 +1,35 @@
-""" Extensions/Install.py """
-
-# Copyright (c) 2005 by Bluedynamics KEG
+# File: Install.py
 #
-# Generated: 
-# Generator: ArchGenXML Version 1.4.0-beta2 devel
+# Copyright (c) 2006 by Bluedynamics KEG
+# Generator: ArchGenXML Version 1.5.0 svn/devel
 #            http://plone.org/products/archgenxml
 #
-# GNU General Public Licence (GPL)
-# 
-# This program is free software; you can redistribute it and/or modify it under
-# the terms of the GNU General Public License as published by the Free Software
-# Foundation; either version 2 of the License, or (at your option) any later
-# version.
-# This program is distributed in the hope that it will be useful, but WITHOUT
-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-# details.
-# You should have received a copy of the GNU General Public License along with
-# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
-# Place, Suite 330, Boston, MA  02111-1307  USA
+# GNU General Public License (GPL)
 #
-__author__    = '''Georg Gogo. BERNHARD <gogo@bluedynamics.com>'''
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+#
+
+__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>"""
 __docformat__ = 'plaintext'
-__version__   = '$ Revision 0.0 $'[11:-2]
+
 
 import os.path
 import sys
 from StringIO import StringIO
-
+from sets import Set
 from App.Common import package_home
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.utils import manage_addTool
@@ -36,10 +38,8 @@ from zExceptions import NotFound, BadRequest
 
 from Products.Archetypes.Extensions.utils import installTypes
 from Products.Archetypes.Extensions.utils import install_subskin
-try:
-    from Products.Archetypes.lib.register import listTypes
-except ImportError:
-    from Products.Archetypes.public import listTypes
+from Products.Archetypes.config import TOOL_NAME as ARCHETYPETOOLNAME
+from Products.Archetypes.atapi import listTypes
 from Products.MxDateTimeField.config import PROJECTNAME
 from Products.MxDateTimeField.config import product_globals as GLOBALS
 
@@ -72,7 +72,9 @@ def install(self):
     # try to call a workflow install method
     # in 'InstallWorkflows.py' method 'installWorkflows'
     try:
-        installWorkflows = ExternalMethod('temp','temp',PROJECTNAME+'.InstallWorkflows', 'installWorkflows').__of__(self)
+        installWorkflows = ExternalMethod('temp', 'temp',
+                                          PROJECTNAME+'.InstallWorkflows',
+                                          'installWorkflows').__of__(self)
     except NotFound:
         installWorkflows = None
 
@@ -90,10 +92,42 @@ def install(self):
         ] + factory_tool.getFactoryTypes().keys()
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
 
+    from Products.MxDateTimeField.config import STYLESHEETS
+    try:
+        portal_css = getToolByName(portal, 'portal_css')
+        for stylesheet in STYLESHEETS:
+            try:
+                portal_css.unregisterResource(stylesheet['id'])
+            except:
+                pass
+            defaults = {'id': '',
+            'media': 'all',
+            'enabled': True}
+            defaults.update(stylesheet)
+            portal_css.manage_addStylesheet(**defaults)
+    except:
+        # No portal_css registry
+        pass
+    from Products.MxDateTimeField.config import JAVASCRIPTS
+    try:
+        portal_javascripts = getToolByName(portal, 'portal_javascripts')
+        for javascript in JAVASCRIPTS:
+            try:
+                portal_javascripts.unregisterResource(javascript['id'])
+            except:
+                pass
+            defaults = {'id': ''}
+            defaults.update(javascript)
+            portal_javascripts.registerScript(**defaults)
+    except:
+        # No portal_javascripts registry
+        pass
+
     # try to call a custom install method
     # in 'AppInstall.py' method 'install'
     try:
-        install = ExternalMethod('temp','temp',PROJECTNAME+'.AppInstall', 'install')
+        install = ExternalMethod('temp', 'temp',
+                                 PROJECTNAME+'.AppInstall', 'install')
     except NotFound:
         install = None
 
@@ -114,21 +148,24 @@ def uninstall(self):
     # try to call a workflow uninstall method
     # in 'InstallWorkflows.py' method 'uninstallWorkflows'
     try:
-        installWorkflows = ExternalMethod('temp','temp',PROJECTNAME+'.InstallWorkflows', 'uninstallWorkflows').__of__(self)
+        uninstallWorkflows = ExternalMethod('temp', 'temp',
+                                            PROJECTNAME+'.InstallWorkflows',
+                                            'uninstallWorkflows').__of__(self)
     except NotFound:
-        installWorkflows = None
+        uninstallWorkflows = None
 
-    if installWorkflows:
-        print >>out,'Workflow Uninstall:'
-        res = uninstallWorkflows(self,out)
-        print >>out,res or 'no output'
+    if uninstallWorkflows:
+        print >>out, 'Workflow Uninstall:'
+        res = uninstallWorkflows(self, out)
+        print >>out, res or 'no output'
     else:
         print >>out,'no workflow uninstall'
 
     # try to call a custom uninstall method
     # in 'AppInstall.py' method 'uninstall'
     try:
-        uninstall = ExternalMethod('temp','temp',PROJECTNAME+'.AppInstall', 'uninstall')
+        uninstall = ExternalMethod('temp', 'temp',
+                                   PROJECTNAME+'.AppInstall', 'uninstall')
     except:
         uninstall = None
 
