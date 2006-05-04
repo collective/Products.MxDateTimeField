@@ -56,6 +56,8 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.MxDateTimeField import config
 
+DEBUG=0
+
 ##/code-section module-header
 
 from Products.MxDateTimeField.MxDateTimeWidget import MxDateTimeWidget
