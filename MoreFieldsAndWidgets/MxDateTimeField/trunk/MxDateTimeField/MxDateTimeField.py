@@ -47,7 +47,6 @@ except ImportError:
 from Products.MxDateTimeField import config
 
 ##code-section module-header #fill in your manual code here
-DEBUG = True
 import mx.DateTime.DateTime # egenix mx base is needed! Gogo.
 from mx.DateTime import DateTimeType
 from types import ListType, TupleType, StringTypes
@@ -120,9 +119,6 @@ class MxDateTimeField(ObjectField):
         else:
             return None
 
-    def get(self, instance, **kwargs):
-        value = ObjectField.get(self, instance, **kwargs)
-        return str(value)
 
 
 registerField(MxDateTimeField,
