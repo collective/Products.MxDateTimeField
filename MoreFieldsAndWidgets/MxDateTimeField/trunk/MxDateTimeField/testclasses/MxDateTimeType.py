@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+#
 # File: MxDateTimeType.py
 #
-# Copyright (c) 2006 by Bluedynamics KEG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by BlueDynamics Alliance, Bluedynamics KEG, Austria
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -22,7 +24,8 @@
 # 02110-1301, USA.
 #
 
-__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>"""
+__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>, Jens Klein
+<jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
@@ -37,12 +40,20 @@ schema = Schema((
 
     MxDateTimeField(
         name='DateBegin',
-    
+        widget=MxDateTimeField._properties['widget'](
+            label='Datebegin',
+            label_msgid='MxDateTimeField_label_DateBegin',
+            i18n_domain='MxDateTimeField',
+        )
     ),
 
     MxDateTimeField(
         name='DateEnd',
-    
+        widget=MxDateTimeField._properties['widget'](
+            label='Dateend',
+            label_msgid='MxDateTimeField_label_DateEnd',
+            i18n_domain='MxDateTimeField',
+        )
     ),
 
 ),
@@ -58,6 +69,8 @@ MxDateTimeType_schema = BaseSchema.copy() + \
 ##/code-section after-schema
 
 class MxDateTimeType(BaseContent):
+    """
+    """
     security = ClassSecurityInfo()
     __implements__ = (getattr(BaseContent,'__implements__',()),)
 
@@ -69,13 +82,14 @@ class MxDateTimeType(BaseContent):
     allowed_content_types = []
     filter_content_types = 0
     global_allow = 1
-    allow_discussion = False
     #content_icon = 'MxDateTimeType.gif'
     immediate_view = 'base_view'
     default_view = 'base_view'
     suppl_views = ()
     typeDescription = "MxDateTimeType"
     typeDescMsgId = 'description_edit_mxdatetimetype'
+
+    _at_rename_after_creation = True
 
     schema = MxDateTimeType_schema
 

@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+#
 # File: MxDateIndex.py
 #
-# Copyright (c) 2006 by Bluedynamics KEG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by BlueDynamics Alliance, Bluedynamics KEG, Austria
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -22,7 +24,8 @@
 # 02110-1301, USA.
 #
 
-__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>"""
+__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>, Jens Klein
+<jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 ##code-section module-header #fill in your manual code here
@@ -30,7 +33,10 @@ import mx
 from Globals import DTMLFile, InitializeClass
 ##/code-section module-header
 
+import mx.DateTime
+from Globals import DTMLFile
 from Products.PluginIndexes.DateIndex.DateIndex import DateIndex
+
 class MxDateIndex(DateIndex):
     """
     """
@@ -43,10 +49,10 @@ class MxDateIndex(DateIndex):
 
     def _convert( self, value, default=None ) :
         """Convert Date/Time value to our internal representation"""
-        
+
         if type(value) == type('') :
             value = mx.DateTime.DateTimeFrom(value)
-        
+
         if isinstance( value, mx.DateTime.mxDateTime.DateTimeType ):
             t_tup = value.tuple()
         else:

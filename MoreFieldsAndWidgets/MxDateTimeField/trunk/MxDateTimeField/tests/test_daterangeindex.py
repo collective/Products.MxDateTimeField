@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+#
 # File: test_daterangeindex.py
 #
-# Copyright (c) 2006 by Bluedynamics KEG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by BlueDynamics Alliance, Bluedynamics KEG, Austria
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -22,7 +24,8 @@
 # 02110-1301, USA.
 #
 
-__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>"""
+__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>, Jens Klein
+<jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 import os, sys
@@ -54,7 +57,6 @@ class test_daterangeindex(MxDateTestCase):
         """
         """
         pass
-
     # Manually created methods
 
 

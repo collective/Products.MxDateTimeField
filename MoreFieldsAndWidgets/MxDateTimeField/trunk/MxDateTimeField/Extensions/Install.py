@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+#
 # File: Install.py
 #
-# Copyright (c) 2006 by Bluedynamics KEG
-# Generator: ArchGenXML Version 1.5.0 svn/devel
+# Copyright (c) 2007 by BlueDynamics Alliance, Bluedynamics KEG, Austria
+# Generator: ArchGenXML Version 1.5.2
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -22,7 +24,8 @@
 # 02110-1301, USA.
 #
 
-__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>"""
+__author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>, Jens Klein
+<jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
 
@@ -43,7 +46,7 @@ from Products.Archetypes.atapi import listTypes
 from Products.MxDateTimeField.config import PROJECTNAME
 from Products.MxDateTimeField.config import product_globals as GLOBALS
 
-def install(self):
+def install(self, reinstall=False):
     """ External Method to install MxDateTimeField """
     out = StringIO()
     print >> out, "Installation log of %s:" % PROJECTNAME
@@ -86,9 +89,13 @@ def install(self):
         print >>out,'no workflow install'
 
 
+
     # enable portal_factory for given types
     factory_tool = getToolByName(self,'portal_factory')
     factory_types=[
+        "MxDateIndex",
+        "MxDateRangeIndex",
+        "MxDateTimeType",
         ] + factory_tool.getFactoryTypes().keys()
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
 
@@ -104,7 +111,7 @@ def install(self):
             'media': 'all',
             'enabled': True}
             defaults.update(stylesheet)
-            portal_css.manage_addStylesheet(**defaults)
+            portal_css.registerStylesheet(**defaults)
     except:
         # No portal_css registry
         pass
@@ -133,7 +140,10 @@ def install(self):
 
     if install:
         print >>out,'Custom Install:'
-        res = install(self)
+        try:
+            res = install(self, reinstall)
+        except TypeError:
+            res = install(self)
         if res:
             print >>out,res
         else:
@@ -142,8 +152,10 @@ def install(self):
         print >>out,'no custom install'
     return out.getvalue()
 
-def uninstall(self):
+def uninstall(self, reinstall=False):
     out = StringIO()
+
+
 
     # try to call a workflow uninstall method
     # in 'InstallWorkflows.py' method 'uninstallWorkflows'
@@ -171,7 +183,10 @@ def uninstall(self):
 
     if uninstall:
         print >>out,'Custom Uninstall:'
-        res = uninstall(self)
+        try:
+            res = uninstall(self, reinstall)
+        except TypeError:
+            res = uninstall(self)
         if res:
             print >>out,res
         else:
@@ -180,3 +195,50 @@ def uninstall(self):
         print >>out,'no custom uninstall'
 
     return out.getvalue()
+
+def beforeUninstall(self, reinstall, product, cascade):
+    """ try to call a custom beforeUninstall method in 'AppInstall.py'
+        method 'beforeUninstall'
+    """
+    out = StringIO()
+    try:
+        beforeuninstall = ExternalMethod('temp', 'temp',
+                                   PROJECTNAME+'.AppInstall', 'beforeUninstall')
+    except:
+        beforeuninstall = []
+
+    if beforeuninstall:
+        print >>out, 'Custom beforeUninstall:'
+        res = beforeuninstall(self, reinstall=reinstall
+                                  , product=product
+                                  , cascade=cascade)
+        if res:
+            print >>out, res
+        else:
+            print >>out, 'no output'
+    else:
+        print >>out, 'no custom beforeUninstall'
+    return (out,cascade)
+
+def afterInstall(self, reinstall, product):
+    """ try to call a custom afterInstall method in 'AppInstall.py' method
+        'afterInstall'
+    """
+    out = StringIO()
+    try:
+        afterinstall = ExternalMethod('temp', 'temp',
+                                   PROJECTNAME+'.AppInstall', 'afterInstall')
+    except:
+        afterinstall = None
+
+    if afterinstall:
+        print >>out, 'Custom afterInstall:'
+        res = afterinstall(self, product=None
+                               , reinstall=None)
+        if res:
+            print >>out, res
+        else:
+            print >>out, 'no output'
+    else:
+        print >>out, 'no custom afterInstall'
+    return out
