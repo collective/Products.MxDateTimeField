@@ -52,33 +52,16 @@ from Products.MxDateTimeField import config
 ##code-section module-header #fill in your manual code here
 
 import mx.DateTime.DateTime # egenix mx base is needed! Gogo.
-
 from mx.DateTime import DateTimeType
-
 from types import ListType, TupleType, StringTypes
 
-
-
 from Products.CMFCore.utils import getToolByName
-
-
-
-
-
 from Products.MxDateTimeField import config
-
-
 
 DEBUG=0
 
-
-
 ##/code-section module-header
-
 from Products.MxDateTimeField.MxDateTimeWidget import MxDateTimeWidget
-
-
-
 
 class MxDateTimeField(ObjectField):
     """
@@ -99,70 +82,27 @@ class MxDateTimeField(ObjectField):
         })
 
     security  = ClassSecurityInfo()
-
-
     security.declarePrivate('set')
     security.declarePrivate('get')
 
-
     def set(self, instance, value, **kwargs):
-
       """
-
       Check if value is an actual date/time value. If not, attempt
-
       to convert it to one; otherwise, set to None. Assign all
-
       properties passed as kwargs to object.
-
       """
-
-
-
-      if DEBUG :
-
-        print "MxDateTimeField set method:", value, type(value)
-
-
-
       if not value:
-
         value = None
 
-
-
       if type(value) in StringTypes:
-
-        if DEBUG :
-
-          print "Setting value from string"
-
         value = mx.DateTime.DateTimeFrom(value)
 
-
-
       if value and type(value) != DateTimeType:
-
-          raise ValueError,"argument to MxDateTimeField must be either a string or a MxDateTime object, but looks got: %s" % repr(value)
-
-
+          raise ValueError, "Argument to MxDateTimeField must be either a "+\
+                            "string or a MxDateTime object, but "+\
+                            "got: %s" % repr(value)
 
       ObjectField.set(self, instance, value, **kwargs)
-
-    def getRaw(self, instance, **kwargs):
-
-        val= ObjectField.get(self,instance,**kwargs)
-
-        if val:
-
-            return '%4d-%02d-%02d %02d:%02d:%02d' %(val.year,val.month,val.day,val.hour,val.minute,val.second)
-
-
-
-        else:
-
-            return None
-
 
 registerField(MxDateTimeField,
               title='MxDateTimeField',
