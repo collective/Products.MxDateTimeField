@@ -1,0 +1,66 @@
+This is a sample for a doctest file
+Here you can simply write python expressions
+and compare the output results like this:
+
+>>> i=1
+>>> print i
+1
+
+Lets import the necessary modules
+>>> from Products.MxDateTimeField import config
+
+>>> from Products.MxDateTimeField.testclasses.MxDateTimeType import MxDateTimeType
+
+every line that starts with '>>>' will be interpreted
+as python statement.
+By writing the expected output after the python
+prompt lines you can compare that with the result
+from the above python statements. If the outputs
+differ you the test fails.
+
+You can also instanciate your classes that you want
+to test like this:
+
+
+>>> res=self.folder.invokeFactory('MxDateTimeType','myobj')
+>>> print self.folder.myobj.getId()
+myobj
+
+Now you can continue with the further tests of your classes here
+
+>>> import mx.DateTime
+>>> print self.folder.myobj.getDateBegin()
+None
+>>> print self.folder.myobj.getDateEnd()
+None
+>>> print self.folder.myobj.setDateBegin('2005-09-02')
+None
+>>> print self.folder.myobj.getDateBegin()
+2005-09-02 00:00:00.00
+>>> print self.folder.myobj.setDateBegin('1534-09-02')
+None
+>>> print self.folder.myobj.getDateBegin()
+1534-09-02 00:00:00.00
+>>> try :
+...     print self.folder.myobj.setDateBegin('2005-02-29')
+... except mx.DateTime.RangeError, e :
+...     print e
+Failed to parse "2005-02-29": day out of range: 29
+>>> print self.folder.myobj.setDateBegin('2004-02-29')
+None
+>>> print self.folder.myobj.setDateBegin('2000-02-29')
+None
+>>> try :
+...     print self.folder.myobj.setDateBegin('1900-02-29')
+... except mx.DateTime.RangeError, e :
+...     print e
+Failed to parse "1900-02-29": day out of range: 29
+>>> print self.folder.myobj.setDateBegin('1600-02-29')
+None
+>>> print self.folder.myobj.setDateBegin('-1600-08-07')
+None
+>>> print self.folder.myobj.getDateBegin()
+-1600-08-07 00:00:00.00
+>>> self.folder.myobj.setDateBegin('1973-08-07 20:05:00.00')
+>>> print self.folder.myobj.getDateBegin()
+1973-08-07 20:05:00.00
