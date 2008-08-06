@@ -2,8 +2,8 @@
 #
 # File: tests.py
 #
-# Copyright (c) 2007 by BlueDynamics Alliance, Bluedynamics KEG, Austria
-# Generator: ArchGenXML Version 1.5.2
+# Copyright (c) 2008 by BlueDynamics Alliance, Bluedynamics KEG, Austria
+# Generator: ArchGenXML Version 2.2 (svn)
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)

@@ -2,26 +2,11 @@
 #
 # File: test_daterangeindex.py
 #
-# Copyright (c) 2007 by BlueDynamics Alliance, Bluedynamics KEG, Austria
-# Generator: ArchGenXML Version 1.5.2
+# Copyright (c) 2008 by BlueDynamics Alliance, Bluedynamics KEG, Austria
+# Generator: ArchGenXML Version 2.2 (svn)
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.
 #
 
 __author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>, Jens Klein
@@ -29,6 +14,11 @@ __author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>, Jens Klein
 __docformat__ = 'plaintext'
 
 import os, sys
+try:
+    from Products.PloneTestCase.PloneTestCase import USELAYER
+    from Products.PloneTestCase.layer import PloneSite
+except:
+    USELAYER = False
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
@@ -58,21 +48,24 @@ class test_daterangeindex(MxDateTestCase):
         """
         pass
     # Manually created methods
+    # Manually created methods
 
 
 def test_suite():
     from unittest import TestSuite
     from Testing.ZopeTestCase.zopedoctest import ZopeDocFileSuite
-
+    from Testing.ZopeTestCase import ZopeDocFileSuite
     ##code-section test-suite-in-between #fill in your manual code here
 ##/code-section test-suite-in-between
 
 
-    return TestSuite((
-        ZopeDocFileSuite('test_daterangeindex.txt',
+    s = ZopeDocFileSuite('test_daterangeindex.txt',
                          package='Products.MxDateTimeField.doc',
-                         test_class=test_daterangeindex),
-    ))
+                         test_class=test_daterangeindex)
+    if USELAYER:
+        s.layer = PloneSite
+    return TestSuite((s,
+                      ))
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
