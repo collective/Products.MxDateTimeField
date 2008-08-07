@@ -36,12 +36,12 @@ def updateRoleMappings(context):
     wft = getToolByName(context.getSite(), 'portal_workflow')
     wft.updateRoleMappings()
 
-
 def postInstall(context):
     """Called as at the end of the setup process. """
     # the right place for your custom code
-    if isNotMxDateTimeFieldProfile(context): return 
+    if isNotMxDateTimeFieldProfile(context): return
     site = context.getSite()
+
 
 
 ##code-section FOOT
