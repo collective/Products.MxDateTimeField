@@ -1,7 +1,0 @@
-add datetest doctest here to demonstrate why calender widget can't be used.
-
-a slight modification of calendar widget's macros
-used in the MxDateTimeWidget could be an intermediate solution.
-
-in future plone or even zope should be refractored to use a mxDateTime
-compatible DateTime module that is also backward compatible.
