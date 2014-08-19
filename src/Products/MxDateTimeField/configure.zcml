@@ -1,12 +1,15 @@
-<configure xmlns="http://namespaces.zope.org/zope" 
-           xmlns:browser="http://namespaces.zope.org/browser" 
-           xmlns:five="http://namespaces.zope.org/five"> 
-  
-  <include file="profiles.zcml" />
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="walseralps.content">
 
-
-
-  <!-- ##code-section configure.zcml -->
-  <!-- ##/code-section configure.zcml -->
+    <five:registerPackage package="." initialize=".initialize" />
+    <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
+    <include file="profiles.zcml" />
 
 </configure>

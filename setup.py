@@ -34,8 +34,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'setuptools',
         'Plone',
+        'egenix-mx-base>=3.2.8',
+        'setuptools',
     ],
     entry_points="""
     [z3c.autoinclude.plugin]
