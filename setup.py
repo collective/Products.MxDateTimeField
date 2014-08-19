@@ -11,7 +11,7 @@ longdesc = open(
     ).read()
 
 setup(
-    name='Products.MXDateTimeField',
+    name='Products.MxDateTimeField',
     version=version,
     description=shortdesc,
     long_description=longdesc,
