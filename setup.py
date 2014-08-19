@@ -27,7 +27,7 @@ setup(
     author='BlueDynamics Alliance',
     author_email='dev@bluedynamics.com',
     license='GPLv2',
-    url='https://pypi.python.org/pypi/collective.pfg.soup',
+    url='https://pypi.python.org/pypi/Products.MxDateTimeField',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     namespace_packages=['Products'],
