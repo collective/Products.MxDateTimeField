@@ -19,7 +19,7 @@ from Products.Archetypes.Widget import TypesWidget
 
 
 class MxDateTimeWidget(TypesWidget):
-    """
+    """Archetypes Widget
     """
 
     _properties = TypesWidget._properties.copy()

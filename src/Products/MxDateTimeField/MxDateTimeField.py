@@ -13,15 +13,17 @@ __author__ = """Georg Gogo. BERNHARD <gogo@bluedynamics.com>, Jens Klein
 <jens@bluedynamics.com>"""
 __docformat__ = 'plaintext'
 
+from .MxDateTimeWidget import MxDateTimeWidget
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.Field import ObjectField
 from Products.Archetypes.Field import registerField
+from mx.DateTime import DateTimeFrom
 from mx.DateTime import DateTimeType
-from .MxDateTimeWidget import MxDateTimeWidget
+from types import StringTypes
 
 
 class MxDateTimeField(ObjectField):
-    """
+    """Archetypes Field
     """
 
     _properties = ObjectField._properties.copy()
@@ -44,7 +46,7 @@ class MxDateTimeField(ObjectField):
             value = None
 
         if type(value) in StringTypes:
-            value = mx.DateTime.DateTimeFrom(value)
+            value = DateTimeFrom(value)
 
         if value and type(value) != DateTimeType:
             raise ValueError("Argument to MxDateTimeField must be either "

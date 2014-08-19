@@ -10,6 +10,14 @@
 
     <five:registerPackage package="." initialize=".initialize" />
     <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
-    <include file="profiles.zcml" />
+    <include package="Products.GenericSetup" file="meta.zcml" />
+
+    <genericsetup:registerProfile
+        name="default"
+        title="MxDateTimeField"
+        directory="profiles/default"
+        description="Extension profile for MxDateTimeField."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
 </configure>
