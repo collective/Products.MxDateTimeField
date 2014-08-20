@@ -14,23 +14,22 @@
        tal:define="d accessor;"
        tal:replace="structure python:d" />
 
-       
+
   <metal:define define-macro="edit">
       <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
-      
+
 	    <input metal:fill-slot="widget_body"
 	       type="text"
 	       tal:attributes="name fieldName;
 	       value value;
 	       size widget/size;
-	       maxlength widget/maxlength;
-	       tabindex tabindex/next;"
+	       maxlength widget/maxlength;"
 	       />
-         
+
       </metal:use>
     </metal:define>
-    
-    
+
+
     <metal:define define-macro="search">
       <metal:field use-macro="here/widgets/field/macros/edit">
         <metal:slot fill-slot="widget_body">
